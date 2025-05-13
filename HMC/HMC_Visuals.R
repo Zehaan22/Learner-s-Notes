@@ -209,4 +209,23 @@ acf(chain3, main = "ACF of HMC Chain",
     lag.max = 10,
      col = "red", lwd = 2)
 
+###############################################################################
+### Negative ACF plots
 
+chain1 <- HMCsampler(s = 10, n = 1e5)
+par(mfrow = c(1, 1))
+acf(chain1, main = "ACF of HMC Chain",
+    lag.max = 20,
+    col = "red", lwd = 2)
+
+hist(chain1, breaks = 50, probability = TRUE,
+     main = "Samples for s = 10", xlab = "Value", ylab = "Density",
+     col = "lightblue", border = "black",
+     cex.main = 2)
+lines(density(chain1), col = "red", lwd = 3, lt = 2) # Overlay density estimate
+x <- seq(-3, 3, length.out = 200)
+y <- dnorm(x)
+lines(x, y, col = "blue", lwd = 2) # Overlay target distribution     
+legend("topright", legend = c("MH Chain", "Target Distribution"), 
+       col = c("red", "blue"), lwd = 2, bty = "n",
+       cex = 1.5)
